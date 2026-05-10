@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PreconLogics — Precision in Every Blueprint. Leading construction design estimation and feasibility consulting firm." />
+  <title>PreconLogics | Precision in Every Blueprint</title>
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0b1929;
+      --navy-mid:   #112240;
+      --navy-light: #1d3461;
+      --gold:       #c9a84c;
+      --gold-light: #e2c068;
+      --gold-dim:   #a08030;
+      --white:      #ffffff;
+      --off-white:  #f4f6f9;
+      --text-muted: #8892a4;
+      --border:     rgba(201, 168, 76, 0.2);
+      --shadow:     0 8px 40px rgba(0,0,0,0.35);
+      --radius:     10px;
+      --transition: 0.3s ease;
+      --max-w:      1120px;
+      --sans:       'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    .container {
+      width: 90%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 4vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--white);
+    }
+
+    .section-title span { color: var(--gold); }
+
+    .section-body {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-top: 1rem;
+    }
+
+    /* ─── Navbar ─── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.25rem 0;
+      transition: background var(--transition), padding var(--transition), box-shadow var(--transition);
+    }
+
+    #navbar.scrolled {
+      background: rgba(11, 25, 41, 0.97);
+      padding: 0.75rem 0;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.5);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(201,168,76,0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--navy);
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: all var(--transition);
+      border-radius: 2px;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(11, 25, 41, 0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      transition: color var(--transition);
+    }
+
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ─── Hero ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 8rem 0 5rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 80% at 10% 30%, rgba(29,52,97,0.8) 0%, transparent 60%),
+        linear-gradient(135deg, var(--navy) 0%, #0d2040 50%, #071526 100%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      background: rgba(201,168,76,0.06);
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title .brand { color: var(--gold); }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .hero-tagline em {
+      font-style: normal;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .hero-actions .btn { font-size: 1rem; padding: 0.85rem 2rem; }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bounce 2.5s ease-in-out infinite;
+    }
+
+    .scroll-hint svg { opacity: 0.5; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── Section Wrapper ─── */
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section-alt { background: var(--navy-mid); }
+
+    /* ─── About ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-img-wrap {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--navy-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+
+    .blueprint-svg {
+      width: 80%;
+      opacity: 0.85;
+    }
+
+    .about-badge-float {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 1.25rem 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+    }
+
+    .about-badge-float .big { font-size: 2rem; display: block; }
+    .about-badge-float .small { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .about-text { }
+
+    .about-text p {
+      color: var(--text-muted);
+      margin-top: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    .about-checklist {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .about-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      color: rgba(255,255,255,0.82);
+      font-size: 0.97rem;
+    }
+
+    .check-icon {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      color: var(--gold);
+      font-size: 0.8rem;
+    }
+
+    /* ─── Services ─── */
+    .services-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .services-header .section-body { margin: 1rem auto 0; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .service-card {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 2.25rem 2rem;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--white);
+    }
+
+    .service-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+      transition: gap var(--transition);
+    }
+
+    .service-link:hover { gap: 0.7rem; }
+
+    /* ─── Why Choose Us ─── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .why-card {
+      text-align: center;
+      padding: 2.5rem 1.75rem;
+      border-radius: 14px;
+      background: var(--navy-mid);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all var(--transition);
+    }
+
+    .why-card:hover {
+      border-color: var(--border);
+      transform: translateY(-5px);
+    }
+
+    .why-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+      border: 1px solid rgba(201,168,76,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.75rem;
+    }
+
+    .why-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+    }
+
+    .why-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── Contact ─── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3.5rem;
+    }
+
+    .contact-info h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-info > p {
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-size: 0.97rem;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-item-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-item-text .value {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* Form */
+    .contact-form {
+      background: var(--navy-mid);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 2.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .form-submit:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.3);
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--gold);
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: #070f1a;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 3.5rem 0 2rem;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand .nav-logo { font-size: 1.6rem; display: inline-block; margin-bottom: 1rem; }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      max-width: 280px;
+      line-height: 1.7;
+    }
+
+    .footer-col h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.65rem; }
+
+    .footer-col ul li a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: color var(--transition);
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom .made-with { color: var(--text-muted); font-size: 0.85rem; }
+    .footer-bottom .made-with span { color: var(--gold); }
+
+    /* ─── Reveal Animation ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual { order: -1; }
+      .about-badge-float { right: 1rem; bottom: -1rem; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { gap: 2rem; }
+      .why-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .section { padding: 4rem 0; }
+    }
+
+    @media (max-width: 400px) {
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navbar ─── -->
+<nav id="navbar" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="#hero">Precon<span>Logics</span></a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <a href="#contact" class="btn btn-gold nav-cta">Get a Free Estimate</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="#about"    onclick="closeMobileMenu()">About</a>
+  <a href="#services" onclick="closeMobileMenu()">Services</a>
+  <a href="#why"      onclick="closeMobileMenu()">Why Us</a>
+  <a href="#contact"  onclick="closeMobileMenu()">Contact</a>
+  <a href="#contact" class="btn btn-gold" onclick="closeMobileMenu()">Get a Free Estimate</a>
+</div>
+
+<!-- ─── Hero ─── -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">Construction Design &amp; Estimation Experts</div>
+
+      <h1 class="hero-title">
+        Precon<span class="brand">Logics</span>
+      </h1>
+
+      <p class="hero-tagline">
+        <em>Precision in Every Blueprint.</em><br>
+        Where engineering intelligence meets construction reality — from concept to cost.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-gold">
+          Get a Free Estimate
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div>
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div>
+          <div class="stat-num">99%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ─── About ─── -->
+<section id="about" class="section section-alt" aria-label="About PreconLogics">
+  <div class="container">
+    <div class="about-grid">
+      <!-- Visual -->
+      <div class="about-visual reveal">
+        <div class="about-img-wrap">
+          <!-- Inline SVG Blueprint Illustration -->
+          <svg class="blueprint-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Grid lines -->
+            <g stroke="rgba(201,168,76,0.12)" stroke-width="0.8">
+              <line x1="0" y1="50" x2="400" y2="50"/>
+              <line x1="0" y1="100" x2="400" y2="100"/>
+              <line x1="0" y1="150" x2="400" y2="150"/>
+              <line x1="0" y1="200" x2="400" y2="200"/>
+              <line x1="0" y1="250" x2="400" y2="250"/>
+              <line x1="50" y1="0" x2="50" y2="300"/>
+              <line x1="100" y1="0" x2="100" y2="300"/>
+              <line x1="150" y1="0" x2="150" y2="300"/>
+              <line x1="200" y1="0" x2="200" y2="300"/>
+              <line x1="250" y1="0" x2="250" y2="300"/>
+              <line x1="300" y1="0" x2="300" y2="300"/>
+              <line x1="350" y1="0" x2="350" y2="300"/>
+            </g>
+            <!-- Building outline -->
+            <rect x="60" y="80" width="280" height="180" rx="2" stroke="rgba(201,168,76,0.7)" stroke-width="2" fill="rgba(201,168,76,0.04)"/>
+            <!-- Roof peak -->
+            <polyline points="40,80 200,30 360,80" stroke="rgba(201,168,76,0.8)" stroke-width="2" fill="none"/>
+            <!-- Door -->
+            <rect x="165" y="200" width="70" height="60" rx="2" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" fill="rgba(201,168,76,0.06)"/>
+            <circle cx="225" cy="232" r="3" fill="rgba(201,168,76,0.7)"/>
+            <!-- Windows left -->
+            <rect x="80" y="110" width="55" height="45" rx="2" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" fill="rgba(201,168,76,0.06)"/>
+            <line x1="107" y1="110" x2="107" y2="155" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+            <line x1="80" y1="132" x2="135" y2="132" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+            <!-- Windows right -->
+            <rect x="265" y="110" width="55" height="45" rx="2" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" fill="rgba(201,168,76,0.06)"/>
+            <line x1="292" y1="110" x2="292" y2="155" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+            <line x1="265" y1="132" x2="320" y2="132" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+            <!-- Dimensions -->
+            <line x1="60" y1="275" x2="340" y2="275" stroke="rgba(201,168,76,0.4)" stroke-width="1" stroke-dasharray="4 3"/>
+            <line x1="60" y1="270" x2="60" y2="280" stroke="rgba(201,168,76,0.6)" stroke-width="1.5"/>
+            <line x1="340" y1="270" x2="340" y2="280" stroke="rgba(201,168,76,0.6)" stroke-width="1.5"/>
+            <text x="200" y="290" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-size="10" font-family="monospace">45.7 m</text>
+            <!-- Corner markers -->
+            <circle cx="60" cy="80" r="3" fill="rgba(201,168,76,0.8)"/>
+            <circle cx="340" cy="80" r="3" fill="rgba(201,168,76,0.8)"/>
+            <circle cx="60" cy="260" r="3" fill="rgba(201,168,76,0.8)"/>
+            <circle cx="340" cy="260" r="3" fill="rgba(201,168,76,0.8)"/>
+            <!-- Labels -->
+            <text x="70" y="165" fill="rgba(201,168,76,0.5)" font-size="9" font-family="monospace">UNIT A</text>
+            <text x="255" y="165" fill="rgba(201,168,76,0.5)" font-size="9" font-family="monospace">UNIT B</text>
+            <text x="20" y="175" fill="rgba(201,168,76,0.5)" font-size="9" font-family="monospace" transform="rotate(-90 20 175)">18.3 m</text>
+          </svg>
+        </div>
+        <div class="about-badge-float">
+          <span class="big">15+</span>
+          <span class="small">Years of Precision</span>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="about-text">
+        <span class="section-label">About Us</span>
+        <h2 class="section-title">Built on <span>Precision</span>,<br>Driven by Purpose</h2>
+        <p>
+          PreconLogics is a leading construction design and estimation firm dedicated to delivering
+          intelligent, data-driven pre-construction services. Founded on a commitment to accuracy
+          and transparency, we bridge the gap between architectural vision and real-world execution —
+          helping developers, contractors, and project owners make informed decisions from day one.
+        </p>
+        <p>
+          Our multidisciplinary team combines deep construction expertise with modern estimation
+          technologies to produce blueprints, feasibility reports, and cost analyses that stand up
+          to the demands of today's complex build environments.
+        </p>
+        <ul class="about-checklist reveal reveal-delay-1">
+          <li>
+            <div class="check-icon">✓</div>
+            Certified estimators and licensed architectural designers on every project
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            Transparent, itemized cost breakdowns with zero hidden assumptions
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            Committed to on-time delivery — from concept sketch to final estimate
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            Trusted by developers, general contractors, and municipality agencies
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Services ─── -->
+<section id="services" class="section" aria-label="Our Services">
+  <div class="container">
+    <div class="services-header reveal">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Comprehensive <span>Design</span> &amp; Estimation Services</h2>
+      <p class="section-body">
+        From concept feasibility to detailed construction drawings, our services cover every
+        stage of the pre-construction process with precision and professionalism.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <!-- Card 1 -->
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon" aria-hidden="true">📐</div>
+        <h3>Construction Design Estimation</h3>
+        <p>
+          Accurate, itemized cost estimates grounded in real market data. We quantify
+          materials, labor, and overhead so your budget is built on facts — not guesswork.
+        </p>
+        <a href="#contact" class="service-link">
+          Request a Quote
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon" aria-hidden="true">📊</div>
+        <h3>Feasibility Reports</h3>
+        <p>
+          Comprehensive project viability analyses that evaluate site constraints, zoning
+          regulations, and financial projections — empowering confident go/no-go decisions.
+        </p>
+        <a href="#contact" class="service-link">
+          Learn More
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon" aria-hidden="true">🏛️</div>
+        <h3>Architectural Design</h3>
+        <p>
+          Functional, code-compliant architectural drawings produced by licensed designers.
+          From schematic floor plans to permit-ready construction documents.
+        </p>
+        <a href="#contact" class="service-link">
+          View Portfolio
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="service-card reveal reveal-delay-4">
+        <div class="service-icon" aria-hidden="true">🏗️</div>
+        <h3>Demolishing Design</h3>
+        <p>
+          Safe, sequenced demolition plans that comply with local regulations and minimize
+          disruption. We detail structural removals, hazmat protocols, and site preparation.
+        </p>
+        <a href="#contact" class="service-link">
+          Get a Plan
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Why Choose Us ─── -->
+<section id="why" class="section section-alt" aria-label="Why Choose PreconLogics">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="section-label">Why PreconLogics</span>
+      <h2 class="section-title">The <span>Difference</span> Is in the Details</h2>
+      <p class="section-body" style="margin: 1rem auto 0">
+        Three pillars define every project we touch — and every client relationship we build.
+      </p>
+    </div>
+
+    <div class="why-grid">
+      <!-- Accuracy -->
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon" aria-hidden="true">🎯</div>
+        <h3>Unmatched Accuracy</h3>
+        <p>
+          Our estimates carry an industry-leading variance of ±2–3%. We use current RSMeans
+          data, live supplier pricing, and multi-tier internal review to deliver numbers
+          you can stake a project on.
+        </p>
+      </div>
+
+      <!-- Expertise -->
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon" aria-hidden="true">🏅</div>
+        <h3>Deep Expertise</h3>
+        <p>
+          With over 15 years spanning residential, commercial, and industrial sectors, our
+          licensed estimators and designers bring the kind of hard-won knowledge that textbooks
+          simply cannot teach.
+        </p>
+      </div>
+
+      <!-- Timeliness -->
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon" aria-hidden="true">⚡</div>
+        <h3>Reliable Timeliness</h3>
+        <p>
+          Construction doesn't wait — and neither do we. Our streamlined workflow guarantees
+          on-time delivery of every report and drawing without sacrificing the quality that
+          defines our reputation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Contact ─── -->
+<section id="contact" class="section" aria-label="Contact PreconLogics">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Get in Touch</span>
+      <h2 class="section-title">Start Your Project with a <span>Free Estimate</span></h2>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Info -->
+      <div class="contact-info reveal reveal-delay-1">
+        <h3>Let's Talk Construction</h3>
+        <p>
+          Whether you're in early concept or ready to break ground, our team is ready to
+          partner with you. Reach out today — consultations are always free.
+        </p>
+
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">📞</div>
+            <div class="contact-item-text">
+              <span class="label">Phone</span>
+              <span class="value">+1 (555) 820-4100</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">✉️</div>
+            <div class="contact-item-text">
+              <span class="label">Email</span>
+              <span class="value">info@preconlogics.com</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">📍</div>
+            <div class="contact-item-text">
+              <span class="label">Office</span>
+              <span class="value">350 Construction Blvd, Suite 12<br>Toronto, ON M5V 2K1, Canada</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">🕐</div>
+            <div class="contact-item-text">
+              <span class="label">Hours</span>
+              <span class="value">Mon – Fri: 8:00 AM – 6:00 PM<br>Sat: 9:00 AM – 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form reveal reveal-delay-2">
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" placeholder="John" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Smith" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
+          </div>
+
+          <div class="form-group">
+            <label for="service">Service of Interest</label>
+            <select id="service" name="service">
+              <option value="" disabled selected>Select a service…</option>
+              <option>Construction Design Estimation</option>
+              <option>Feasibility Reports</option>
+              <option>Architectural Design</option>
+              <option>Demolishing Design</option>
+              <option>Other / General Inquiry</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Project Details *</label>
+            <textarea id="message" name="message" placeholder="Briefly describe your project — location, scope, timeline, and any specific requirements…" required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">
+            Send Message
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+
+          <div class="form-success" id="formSuccess" role="status">
+            ✓ &nbsp;Thank you! We'll be in touch within one business day.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer aria-label="Footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#hero">Precon<span>Logics</span></a>
+        <p>
+          Precision in Every Blueprint. PreconLogics delivers construction design and
+          estimation services built on accuracy, expertise, and trust.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Design Estimation</a></li>
+          <li><a href="#services">Feasibility Reports</a></li>
+          <li><a href="#services">Architectural Design</a></li>
+          <li><a href="#services">Demolishing Design</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#why">Why Choose Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact">Free Estimate</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 PreconLogics. All Rights Reserved.</p>
+      <p class="made-with">Precision &bull; Expertise &bull; <span>Results</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── Navbar scroll effect ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* ── Hamburger / Mobile Menu ── */
+  const hamburger   = document.getElementById('hamburger');
+  const mobileMenu  = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  /* Close menu on outside click */
+  mobileMenu.addEventListener('click', e => {
+    if (e.target === mobileMenu) closeMobileMenu();
+  });
+
+  /* ── Scroll Reveal ── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer  = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  /* ── Active nav link highlight ── */
+  const sections  = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('.nav-links a');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.color = link.getAttribute('href') === `#${entry.target.id}`
+            ? 'var(--gold)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.45 });
+
+  sections.forEach(s => sectionObserver.observe(s));
+
+  /* ── Contact Form ── */
+  const form        = document.getElementById('contactForm');
+  const formSuccess = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+
+    required.forEach(field => {
+      if (!field.value.trim()) {
+        valid = false;
+        field.style.borderColor = '#e05555';
+        field.addEventListener('input', () => { field.style.borderColor = ''; }, { once: true });
+      }
+    });
+
+    if (!valid) return;
+
+    const emailField = form.querySelector('#email');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailField.value.trim())) {
+      emailField.style.borderColor = '#e05555';
+      emailField.focus();
+      return;
+    }
+
+    /* Simulate submission */
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      formSuccess.style.display = 'block';
+      form.reset();
+      btn.innerHTML = 'Send Message <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+      btn.disabled = false;
+      setTimeout(() => { formSuccess.style.display = 'none'; }, 6000);
+    }, 900);
+  });
+</script>
+</body>
+</html>
